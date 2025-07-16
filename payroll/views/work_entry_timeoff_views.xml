@@ -1,0 +1,102 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_work_entry_timeoff_report_form" model="ir.ui.view">
+        <field name="name">work.entry.timeoff.report.form</field>
+        <field name="model">work.entry.timeoff.report</field>
+        <field name="arch" type="xml">
+            <form string="Time Off Report">
+                <header>
+                    <button name="action_approve"
+                            type="object"
+                            string="Approve"
+                            class="btn-primary"
+                            visibility="['approved', '=', 'to_approve']"/>
+                   
+                    <button name="action_refuse"
+                            type="object"
+                            string="Refuse"
+                            class="btn-secondary"
+                            visibility="['approved', '=', 'to_approve']"/>
+ 
+                    <field name="approved"
+                           widget="statusbar"
+                           statusbar_visible="to_approve,approved,refused"
+                           readonly="1"/>
+                </header>
+ 
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="reason"/>
+                        </group>
+                        <group>
+                            <field name="approved" readonly="1"/>
+                            <field name="name" string="Description"/>
+                        </group>
+                    </group>
+ 
+                    <!-- New Fields -->
+                    <group>
+                        <field name="department_id"/>
+                        <field name="time_off_type_id"/>
+
+                        <field name="requested_duration" readonly="1"/>
+                        <field name="payslip_state"/>
+                    </group>
+ 
+                    <group>
+                        <separator string="Supporting Documents" colspan="2"/>
+                        <field name="attachment_ids"
+                               widget="many2many_binary"
+                               options="{'no_create': True}" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+ 
+    <!-- TREE VIEW (optional, for completeness) -->
+    <record id="view_work_entry_timeoff_report_tree" model="ir.ui.view">
+        <field name="name">work.entry.timeoff.report.tree</field>
+        <field name="model">work.entry.timeoff.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="approved"/>
+                <field name="name"/>
+                <field name="department_id"/>
+                <field name="time_off_type_id"/>
+
+                <field name="requested_duration"/>
+                <field name="payslip_state"/>
+            </tree>
+        </field>
+    </record>
+ 
+    <!-- ACTION -->
+    <record id="action_work_entry_timeoff_report" model="ir.actions.act_window">
+        <field name="name">Time Off Reports</field>
+        <field name="res_model">work.entry.timeoff.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and view time-off reports here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_work_entry_timeoff_report"
+        name="Time Off Reports"
+        parent="menu_work_entries"
+        action="action_work_entry_timeoff_report"
+        sequence="10"
+    />
+ 
+</odoo>
+ 
