@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Root Menus -->
+    <menuitem
+        id="payroll_menu_root"
+        name="Payroll"
+        sequence="45"
+        web_icon="payroll,static/description/icon.png"
+    />
+
+    <menuitem
+        id="payroll_menu_configuration"
+        name="Configuration"
+        parent="payroll_menu_root"
+        sequence="100"
+        groups="payroll.group_payroll_manager"
+    />
+
+    <!-- Contracts Menu -->
+    <menuitem
+        id="menu_contracts"
+        name="Contracts"
+        parent="payroll_menu_root"
+        sequence="10"
+        groups="payroll.group_payroll_manager"
+    />
+
+    <!-- Contract List Action -->
+    <record id="action_contract_list" model="ir.actions.act_window">
+        <field name="name">Contract List</field>
+        <field name="res_model">hr.contract</field> <!-- ✅ Fixed -->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first contract</p>
+        </field>
+    </record>
+
+    <!-- Contract List Submenu -->
+    <menuitem
+        id="submenu_contracts"
+        name="Contract List"
+        parent="menu_contracts"
+        action="payroll.action_contract_list"
+        sequence="1"
+        groups="payroll.group_payroll_manager"
+    />
+
+    <!-- Salary Attachment List Action -->
+    <record id="action_salary_attachment_list" model="ir.actions.act_window">
+        <field name="name">Salary Attachments</field>
+        <field name="res_model">hr.salary.attachment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create the first salary attachment</p>
+        </field>
+    </record>
+
+    <!-- Salary Attachment Submenu -->
+    <menuitem
+        id="submenu_salary_attachment"
+        name="Salary Attachments"
+        parent="menu_contracts"
+        action="payroll.action_salary_attachment_list"
+        sequence="2"
+        groups="payroll.group_payroll_manager"
+    />
+
+    <!-- Work Entries -->
+    <menuitem
+        id="menu_work_entries"
+        name="Work Entries"
+        parent="payroll_menu_root"
+        sequence="20"
+    />
+
+    <menuitem
+        id="menu_time_off_to_report"
+        name="Time Off to Report"
+        parent="menu_work_entries"
+        sequence="10"
+    />
+
+    <menuitem
+        id="submenu_work_entries_list"
+        name="Work Entries"
+        parent="menu_work_entries"
+        sequence="15"
+    />
+
+    <!-- Payroll Report Action -->
+    <record id="action_payroll_report" model="ir.actions.act_window">
+        <field name="name">Payroll Reports</field>
+        <field name="res_model">hr.payroll.report</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Reporting Menu -->
+    <menuitem
+        id="payroll_menu_reporting"
+        name="Reporting"
+        parent="payroll_menu_root"
+        sequence="50"
+        action="action_payroll_report"
+    />
+
+    <!-- Other Configurations -->
+    <menuitem
+        id="menu_other_input_types"
+        name="Other Input Types"
+        parent="payroll_menu_configuration"
+        sequence="110"
+        groups="payroll.group_payroll_manager"
+    />
+
+    <menuitem
+        id="payroll_menu_working_schedule"
+        name="Working Schedule"
+        parent="payroll_menu_configuration"
+        sequence="120"
+    />
+
+</odoo>

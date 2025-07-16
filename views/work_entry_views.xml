@@ -1,0 +1,92 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_hr_work_entry_custom_tree" model="ir.ui.view">
+        <field name="name">hr.work.entry.custom.tree</field>
+        <field name="model">hr.work.entry.custom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="work_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+            </tree>
+        </field>
+    </record>
+ 
+    <!-- Form View -->
+    <record id="view_hr_work_entry_custom_form" model="ir.ui.view">
+        <field name="name">hr.work.entry.custom.form</field>
+        <field name="model">hr.work.entry.custom</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="employee_id"/>
+                        <field name="work_type"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+ 
+    <!-- Calendar View -->
+    <record id="view_hr_work_entry_custom_calendar" model="ir.ui.view">
+        <field name="name">hr.work.entry.custom.calendar</field>
+        <field name="model">hr.work.entry.custom</field>
+        <field name="arch" type="xml">
+            <calendar string="Work Entries"
+                      date_start="date_from"
+                      date_stop="date_to"
+                      color="work_type">
+                <field name="employee_id"/>
+                <field name="work_type"/>
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
+ 
+    <!-- Gantt View -->
+    <record id="view_hr_work_entry_custom_gantt" model="ir.ui.view">
+        <field name="name">hr.work.entry.custom.gantt</field>
+        <field name="model">hr.work.entry.custom</field>
+        <field name="arch" type="xml">
+            <gantt string="Work Entries Gantt"
+                   date_start="date_from"
+                   date_stop="date_to"
+                   default_group_by="employee_id"
+                   color="work_type">
+                <field name="employee_id"/>
+                <field name="name"/>
+            </gantt>
+        </field>
+    </record>
+ 
+     <!-- Action for Work Entries -->
+    <record id="action_hr_work_entry_custom" model="ir.actions.act_window">
+        <field name="name">Custom Work Entries</field>
+        <field name="res_model">hr.work.entry.custom</field>
+        <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="view_id" ref="view_hr_work_entry_custom_gantt"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Record your work entries for employees.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item for Work Entries -->
+    <menuitem
+        id="menu_hr_work_entry_custom"
+        name="Custom Work Entries"
+        parent="menu_work_entries" 
+        sequence="20"
+        action="action_hr_work_entry_custom"
+    />
+ 
+ 
+</odoo>
+ 
